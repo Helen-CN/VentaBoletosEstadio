@@ -1,7 +1,12 @@
 package view;
 
+import controller.LoginController;
 import controller.SistemaBoletos;
+import java.io.IOException;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.GestorUsuarios;
 import model.Usuario;
@@ -38,8 +43,19 @@ public class MainView extends Application {
     }
 
     public void mostrarLogin() {
-        primaryStage.setScene(new LoginView(this, gestor).crearScene());
-        primaryStage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            Parent root = loader.load();
+
+            LoginController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setGestorUsuarios(gestor);
+
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void mostrarRegistro() {
