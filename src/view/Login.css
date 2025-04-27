@@ -1,0 +1,60 @@
+/* Fondo general */
+.root {
+    -fx-background-color: linear-gradient(to right, #0d3b66, #1d5fa6, #2a82c9); /* De un azul muy oscuro a un azul brillante */
+
+}
+
+/* Login panel con glass effect */
+#loginPane {
+    -fx-background-color: rgba(255, 255, 255, 0.25); /* Blanco translúcido */
+    -fx-background-radius: 20;
+    -fx-padding: 30;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0.5, 0.0, 0.0);
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 20;
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+    -fx-font-size: 14px;
+    -fx-padding: 8 16;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* TextFields */
+.text-field, .password-field {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+}
+
+/* Hyperlink */
+.hyperlink {
+    -fx-text-fill: #3498db;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #2980b9;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Label de mensaje (errores, éxito) */
+#messageLabel {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}

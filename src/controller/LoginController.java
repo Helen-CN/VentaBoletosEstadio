@@ -1,6 +1,7 @@
 package controller;
 
 import animatefx.animation.BounceInDown;
+import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,7 +18,7 @@ public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label messageLabel;
-    @FXML private VBox loginPane; // Importante para animaciones
+    @FXML private VBox loginPane;
     @FXML private Hyperlink forgotPasswordLink;
     @FXML private Button registerButton;
 
@@ -31,10 +32,10 @@ public class LoginController {
 
     @FXML
     private void initialize() {
-        // Animación de entrada al abrir la ventana
+        // Animaciones al abrir
         new BounceInDown(loginPane).play();
+        new FadeIn(loginPane).setDelay(javafx.util.Duration.seconds(0.3)).play();
 
-        // Acciones de los botones/enlaces adicionales
         forgotPasswordLink.setOnAction(event -> handleForgotPassword());
         registerButton.setOnAction(event -> handleRegister());
     }
@@ -47,28 +48,27 @@ public class LoginController {
         if (gestor.autenticarUsuario(correo, contrasena)) {
             String nombre = gestor.obtenerNombre(correo);
             Usuario usuario = new Usuario(nombre, correo);
-            usuario.cargarHistorialDesdeArchivo(); // si deseas cargar el historial aquí
+            usuario.cargarHistorialDesdeArchivo();
 
-            messageLabel.setStyle("-fx-text-fill: #2ecc71;"); // Verde éxito
+            messageLabel.setStyle("-fx-text-fill: #2ecc71;");
             messageLabel.setText("¡Bienvenido, " + nombre + "!");
+            mainApp.mostrarMenuPrincipal(usuario);
 
-            mainApp.mostrarMenuPrincipal(usuario); // pasa al menú principal
         } else {
             messageLabel.setStyle("-fx-text-fill: red;");
             messageLabel.setText("Credenciales incorrectas.");
-            new Shake(loginPane).play(); // ¡Animación de error!
+            new Shake(loginPane).play(); // Vibración de error
         }
     }
 
     private void handleForgotPassword() {
-        // Aquí puedes abrir una ventana nueva o mostrar un popup
         System.out.println("Olvidaste tu contraseña clickeado...");
         messageLabel.setStyle("-fx-text-fill: #f39c12;");
         messageLabel.setText("Recuperación de contraseña no disponible aún.");
     }
+
     @FXML
     private void handleRegister() {
-        // Aquí abrirías el formulario de registro
         System.out.println("Botón de registrarse clickeado...");
         messageLabel.setStyle("-fx-text-fill: #3498db;");
         messageLabel.setText("Función de registro en construcción.");
