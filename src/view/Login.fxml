@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -14,25 +15,43 @@
 
 <AnchorPane prefHeight="404.0" prefWidth="766.0" style="-fx-background-color: linear-gradient(to bottom, #202020, #0A0F3D);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
     <children>
-        <VBox alignment="CENTER" layoutX="401.0" layoutY="134.0" prefHeight="179.0" prefWidth="336.0" spacing="15.0" AnchorPane.leftAnchor="401.0" AnchorPane.rightAnchor="29.40000000000009" AnchorPane.topAnchor="134.0">
+        
+        <!-- Panel de login -->
+        <VBox fx:id="loginPane" alignment="CENTER" layoutX="402.0" layoutY="60.0" prefHeight="320.0" prefWidth="335.0" spacing="12.0" AnchorPane.leftAnchor="402.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="60.0">
             <children>
-                <TextField fx:id="usernameField" prefWidth="360.0" promptText="Usuario" style="-fx-background-radius: 10; -fx-padding: 8; -fx-background-color: #0A0F3D;" />
-                <PasswordField fx:id="passwordField" promptText="Contraseña" style="-fx-background-radius: 10; -fx-padding: 8; -fx-background-color: #0A0F3D;" />
-                <Button fx:id="loginButton" onAction="#handleLogin" style="-fx-background-color: #E63946; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 10 20 10 20;" text="Ingresar">
-                    <VBox.margin><Insets top="10" /></VBox.margin>
+                <Label text="🎟️ Venta de Boletos" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
+
+                <TextField fx:id="usernameField" promptText="Usuario" style="-fx-background-radius: 10; -fx-padding: 10; -fx-background-color: #6B7280;"/>
+
+                <PasswordField fx:id="passwordField" promptText="Contraseña" style="-fx-background-radius: 10; -fx-padding: 10; -fx-background-color: #6B7280;"/>
+
+                <Button fx:id="loginButton" onAction="#handleLogin" text="Ingresar" style="-fx-background-color: #E63946; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 10 20 10 20;">
+                    <VBox.margin><Insets top="10"/></VBox.margin>
                 </Button>
+
+                <Hyperlink fx:id="forgotPasswordLink" text="¿Olvidaste tu contraseña?" style="-fx-text-fill: #BBDEFB; -fx-underline: true;" />
+
+                <Label text="¿No tienes cuenta?" style="-fx-text-fill: white;"/>
+                
+                <Button fx:id="registerButton" text="Registrarse" onAction="#handleRegister" style="-fx-background-color: #457B9D; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 10 20 10 20;"/>
+
                 <Label fx:id="messageLabel" textFill="red" />
             </children>
         </VBox>
-      <Pane layoutX="62.0" layoutY="78.0" prefHeight="248.0" prefWidth="243.0">
-         <children>
-            <ImageView fitHeight="248.0" fitWidth="243.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@logo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
-      <Line endX="100.0" layoutX="382.0" layoutY="202.0" rotate="90.0" startX="-150.0" stroke="#ced4da" />
+
+        <!-- Logo a la izquierda -->
+        <Pane layoutX="62.0" layoutY="78.0" prefHeight="248.0" prefWidth="243.0">
+            <children>
+                <ImageView fitHeight="248.0" fitWidth="243.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@logo.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+
+        <!-- Línea divisoria -->
+        <Line endX="100.0" layoutX="382.0" layoutY="202.0" rotate="90.0" startX="-150.0" stroke="#ced4da" />
+
     </children>
 </AnchorPane>

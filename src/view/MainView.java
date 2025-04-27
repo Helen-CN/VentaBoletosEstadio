@@ -44,7 +44,9 @@ public class MainView extends Application {
 
     public void mostrarLogin() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            System.out.println("Cargando FXML...");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
+
             Parent root = loader.load();
 
             LoginController controller = loader.getController();
