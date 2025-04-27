@@ -61,7 +61,21 @@ public class MainView extends Application {
     }
 
     public void mostrarRegistro() {
-        primaryStage.setScene(new RegistroView(this, gestor).crearScene());
+        try {
+            RegistroView registroView = new RegistroView(this, gestor);
+            Scene escenaRegistro = registroView.crearScene();
+
+            if (escenaRegistro != null) {
+                primaryStage.setScene(escenaRegistro);
+            } else {
+                throw new RuntimeException("No se pudo crear la escena de registro");
+            }
+        } catch (Exception e) {
+            System.err.println("Error al mostrar registro: " + e.getMessage());
+            e.printStackTrace();
+            // Fallback: Volver al login si hay error
+            mostrarLogin();
+        }
     }
 
     public void mostrarMenuPrincipal(Usuario usuario) {

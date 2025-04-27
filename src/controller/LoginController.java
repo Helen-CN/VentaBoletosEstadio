@@ -2,6 +2,7 @@ package controller;
 
 import animatefx.animation.BounceInDown;
 import animatefx.animation.FadeIn;
+import animatefx.animation.FadeOut;
 import animatefx.animation.Shake;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -69,8 +70,12 @@ public class LoginController {
 
     @FXML
     private void handleRegister() {
-        System.out.println("Botón de registrarse clickeado...");
-        messageLabel.setStyle("-fx-text-fill: #3498db;");
-        messageLabel.setText("Función de registro en construcción.");
+        // Animación de salida
+        FadeOut fadeOut = new FadeOut(loginPane);
+        fadeOut.setSpeed(1.5);
+        fadeOut.setOnFinished(e -> {
+            mainApp.mostrarRegistro();
+        });
+        fadeOut.play();
     }
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<VBox fx:id="registerPane" alignment="CENTER" prefHeight="550.0" prefWidth="350.0" spacing="20" style="-fx-background-color: #0f4377;" stylesheets="@/css/registro.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
+    
+    <!-- Logo con efecto -->
+    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+        <image>
+            <Image url="@/images/logo.png" />
+        </image>
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.4)" radius="15" spread="0.2" />
+        </effect>
+    </ImageView>
+    
+    <!-- Título con separación -->
+    <Label styleClass="title-label" text="REGISTRO" />
+    
+    <!-- Línea decorativa -->
+    <Line endX="200" stroke="rgba(255,255,255,0.3)" strokeWidth="2">
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.2)" radius="3" />
+        </effect>
+    </Line>
+    
+    <!-- Campos de formulario -->
+    <TextField fx:id="nombreField" promptText="Nombre completo" styleClass="input-field" />
+    <TextField fx:id="correoField" promptText="Correo electrónico" styleClass="input-field" />
+    <PasswordField fx:id="contrasenaField" promptText="Contraseña" styleClass="input-field" />
+    
+    <!-- Progress Indicator centrado -->
+    <HBox alignment="CENTER">
+        <ProgressIndicator fx:id="progressIndicator" styleClass="progress-indicator" visible="false" />
+    </HBox>
+    
+    <!-- Botón principal -->
+    <Button onAction="#handleRegistrar" prefWidth="200" styleClass="primary-button" text="CREAR CUENTA" />
+    
+    <!-- Mensaje de estado -->
+    <Label fx:id="mensajeLabel" maxWidth="250" styleClass="message-label" wrapText="true" />
+    
+    <!-- Separador -->
+    <Line endX="150" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+    
+    <!-- Botón secundario -->
+    <Button onAction="#handleVolver" prefWidth="200" styleClass="secondary-button" text="VOLVER AL LOGIN" />
+</VBox>
