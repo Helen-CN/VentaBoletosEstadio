@@ -7,10 +7,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.GestorUsuarios;
 import model.Usuario;
 
+/**
+ * Clase principal que inicia la aplicación de venta de boletos.
+ */
 public class MainView extends Application {
 
     private Stage primaryStage;
@@ -31,35 +35,49 @@ public class MainView extends Application {
     @Override
     public void stop() {
         if (sistema != null) {
-            sistema.guardarEstado(); // Usa tu ArchivoBoletos existente
+            sistema.guardarEstado(); // Guarda el estado de los boletos al cerrar
         }
-        // El guardado de usuarios sigue igual
     }
 
+    /**
+     * Configura las propiedades iniciales del Stage principal.
+     */
     private void configurarStage() {
         primaryStage.setTitle("Sistema de Venta de Boletos");
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(300);
     }
 
+    /**
+     * Cambia la escena actual mostrando el nodo raíz proporcionado.
+     * @param root Nodo raíz a mostrar en la ventana principal.
+     */
+    private void cambiarEscena(Parent root) {
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    /**
+     * Muestra la ventana de inicio de sesión.
+     */
     public void mostrarLogin() {
         try {
-            System.out.println("Cargando FXML...");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
-
             Parent root = loader.load();
 
             LoginController controller = loader.getController();
             controller.setMainApp(this);
             controller.setGestorUsuarios(gestor);
 
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
+            cambiarEscena(root);
         } catch (IOException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar la ventana de Login.", e);
         }
     }
 
+    /**
+     * Muestra la ventana de registro de nuevos usuarios.
+     */
     public void mostrarRegistro() {
         try {
             RegistroView registroView = new RegistroView(this, gestor);
@@ -71,19 +89,39 @@ public class MainView extends Application {
                 throw new RuntimeException("No se pudo crear la escena de registro");
             }
         } catch (Exception e) {
-            System.err.println("Error al mostrar registro: " + e.getMessage());
-            e.printStackTrace();
-            // Fallback: Volver al login si hay error
-            mostrarLogin();
+            mostrarError("Error al mostrar la ventana de Registro.", e);
+            mostrarLogin(); // Regresar a login si falla
         }
     }
 
+    /**
+     * Muestra el menú principal tras iniciar sesión.
+     * @param usuario Usuario autenticado.
+     */
     public void mostrarMenuPrincipal(Usuario usuario) {
         primaryStage.setScene(new MenuView(this, sistema, usuario).crearScene());
     }
 
+    /**
+     * Muestra la ventana de compra de boletos.
+     * @param usuario Usuario autenticado.
+     */
     public void mostrarCompraBoletos(Usuario usuario) {
         primaryStage.setScene(new CompraView(this, sistema, usuario).crearScene());
+    }
+
+    /**
+     * Muestra una alerta de error en caso de excepción.
+     * @param mensaje Mensaje principal del error.
+     * @param e Excepción capturada.
+     */
+    private void mostrarError(String mensaje, Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(mensaje);
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+        e.printStackTrace();
     }
 
     public static void main(String[] args) {
