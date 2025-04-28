@@ -1,5 +1,6 @@
 package view;
 
+import controller.ForgotPasswordController;
 import controller.LoginController;
 import controller.SistemaBoletos;
 import java.io.IOException;
@@ -20,6 +21,8 @@ public class MainView extends Application {
     private Stage primaryStage;
     private SistemaBoletos sistema;
     private GestorUsuarios gestor;
+    private GestorUsuarios gestorUsuarios; // atributo global
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -123,6 +126,25 @@ public class MainView extends Application {
         alert.showAndWait();
         e.printStackTrace();
     }
+    
+    public void mostrarRecuperarContrasena() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgot_password.fxml"));
+            Parent root = loader.load();
+
+            ForgotPasswordController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setGestorUsuarios(gestorUsuarios); // si necesitas el gestor
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static void main(String[] args) {
         launch(args);

@@ -1,71 +1,75 @@
-/* registro.css - Versión definitiva funcionando al 100% */
-
-/* ===== FONDO PRINCIPAL ===== */
+/* ====== FONDO GENERAL ====== */
 .anchor-pane, .vbox, .scene, StackPane {
-    -fx-background-color: linear-gradient(to bottom, 
-        #0a2e52 0%,     /* Azul oscuro superior */
-        #0f4377 50%,    /* Azul medio */
-        #1a68b0 100%);  /* Azul claro inferior */
-    -fx-font-family: 'Arial';
+/*    -fx-background-color: linear-gradient(to bottom, 
+        #0a2e52 0%,      Azul oscuro superior 
+        #0f4377 50%,     Azul medio 
+        #1a68b0 100%);   Azul claro inferior 
+    -fx-font-family: 'Arial';*/
+    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);
+
 }
 
-/* ===== PANEL PRINCIPAL ===== */
+/* ====== PANEL DE REGISTRO ====== */
 #registerPane {
     -fx-background-color: rgba(255, 255, 255, 0.12);
     -fx-background-radius: 25;
     -fx-padding: 35px 40px;
-    -fx-border-color: rgba(255, 255, 255, 0.15);
+    -fx-border-color: rgba(255, 255, 255, 0.18);
     -fx-border-width: 1.5;
     -fx-border-radius: 25;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 25, 0.2, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 25, 0.2, 0, 5);
     -fx-spacing: 20px;
     -fx-alignment: CENTER;
 }
 
-/* ===== ELEMENTOS DEL FORMULARIO ===== */
-
-/* Logo */
+/* ====== LOGO ====== */
 #logo {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0.3, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.3, 0, 2);
 }
 
-/* Título */
+/* ====== TÍTULO ====== */
 #titleLabel {
     -fx-text-fill: white;
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-padding: 0 0 15px 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0.3, 1, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 2, 0.3, 1, 1);
 }
 
-/* Líneas divisorias */
+/* ====== DIVISORES ====== */
 .divider-line {
-    -fx-stroke: rgba(255,255,255,0.3);
+    -fx-stroke: rgba(255, 255, 255, 0.3);
     -fx-stroke-width: 2;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0.2, 0, 0);
 }
 
 .secondary-divider {
-    -fx-stroke: rgba(255,255,255,0.2);
+    -fx-stroke: rgba(255, 255, 255, 0.2);
     -fx-stroke-width: 1;
 }
 
-/* Campos de texto */
+/* ====== CAMPOS DE TEXTO ====== */
 .input-field {
     -fx-background-color: rgba(255, 255, 255, 0.9);
     -fx-background-radius: 8px;
     -fx-padding: 10px 15px 10px 35px;
     -fx-font-size: 14px;
     -fx-pref-width: 280px;
-    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.1), 5, 0.1, 0, 1);
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0.1, 0, 1);
 }
 
 .input-field:focused {
-    -fx-effect: dropshadow(gaussian, rgba(81, 203, 238, 0.4), 10, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(81, 203, 238, 0.4), 8, 0.5, 0, 0);
     -fx-background-color: rgba(255, 255, 255, 0.95);
 }
 
-/* ===== BOTONES ===== */
+.input-field:hover {
+    -fx-effect: dropshadow(gaussian, rgba(81, 203, 238, 0.3), 6, 0.3, 0, 0);
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+}
+
+
+/* ====== BOTONES ====== */
 .primary-button {
     -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
     -fx-text-fill: white;
@@ -74,9 +78,9 @@
     -fx-padding: 0 30px;
     -fx-font-size: 14px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 0, 2, 0, 1);
     -fx-pref-width: 200px;
     -fx-pref-height: 40px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 3, 0.3, 0, 1);
 }
 
 .primary-button:hover {
@@ -92,7 +96,6 @@
     -fx-padding: 0 25px;
     -fx-font-size: 14px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 0, 1, 0, 1);
     -fx-pref-width: 200px;
     -fx-pref-height: 40px;
 }
@@ -102,12 +105,13 @@
     -fx-text-fill: #2980b9;
 }
 
-/* ===== ELEMENTOS ADICIONALES ===== */
+/* ====== PROGRESS INDICATOR ====== */
 .progress-indicator {
     -fx-progress-color: #2ecc71;
-    -fx-effect: dropshadow(three-pass-box, rgba(46,204,113,0.3), 5, 0.3, 0, 1);
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.3), 5, 0.3, 0, 1);
 }
 
+/* ====== MENSAJE DE ERROR/EXITO ====== */
 #messageLabel {
     -fx-text-fill: #e74c3c;
     -fx-font-weight: bold;
@@ -116,10 +120,10 @@
     -fx-wrap-text: true;
     -fx-max-width: 280px;
     -fx-alignment: CENTER;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 1, 1, 1, 1);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 1, 1, 1, 1);
 }
 
-/* ===== AJUSTES GENERALES ===== */
+/* ====== AJUSTES GLOBALES ====== */
 * {
     -fx-font-smoothing-type: lcd;
 }
