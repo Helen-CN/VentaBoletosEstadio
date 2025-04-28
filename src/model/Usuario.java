@@ -5,12 +5,22 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Stack;
 
+/**
+ * Clase que representa un usuario del sistema de venta de boletos.
+ * Cada usuario mantiene un historial de compras en una pila.
+ */
 public class Usuario {
 
     private String nombre;
     private String correo;
     private Stack<Boleto> historialCompras;
 
+    /**
+     * Constructor para crear un nuevo usuario.
+     *
+     * @param nombre Nombre del usuario.
+     * @param correo Correo electrónico del usuario.
+     */
     public Usuario(String nombre, String correo) {
         this.nombre = nombre;
         this.correo = correo;
@@ -25,10 +35,20 @@ public class Usuario {
         return correo;
     }
 
+    /**
+     * Agrega un boleto al historial de compras del usuario.
+     *
+     * @param boleto Boleto comprado.
+     */
     public void agregarCompra(Boleto boleto) {
         historialCompras.push(boleto);
     }
 
+    /**
+     * Deshace la última compra realizada, eliminándola del historial.
+     *
+     * @return El boleto eliminado o null si no hay compras.
+     */
     public Boleto deshacerCompra() {
         if (!historialCompras.isEmpty()) {
             return historialCompras.pop();
@@ -42,30 +62,30 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{"
-                + "Nombre='" + nombre + '\''
-                + ", Correo='" + correo + '\''
-                + ", Compras Realizadas=" + historialCompras.size()
-                + '}';
+        return "Usuario{" +
+                "Nombre='" + nombre + '\'' +
+                ", Correo='" + correo + '\'' +
+                ", Compras Realizadas=" + historialCompras.size() +
+                '}';
     }
 
+    /**
+     * Guarda el historial de compras del usuario en un archivo de texto.
+     */
     public void guardarHistorialEnArchivo() {
         try {
-            // Crear directorio si no existe
-            new File("data_usuarios").mkdirs();
+            new File("data_usuarios").mkdirs(); // Asegura que el directorio exista
 
-            // Ruta exacta del archivo
             String ruta = "data_usuarios/historial_" + correo.replace("@", "_") + ".txt";
-            System.out.println("Guardando en: " + new File(ruta).getAbsolutePath());
 
             try (PrintWriter writer = new PrintWriter(ruta)) {
                 for (Boleto b : historialCompras) {
                     if (b != null) {
                         writer.println(
-                                b.getId() + ","
-                                + b.getCategoria() + ","
-                                + b.getPrecio() + ","
-                                + b.getAsiento()
+                                b.getId() + "," +
+                                b.getCategoria() + "," +
+                                b.getPrecio() + "," +
+                                b.getAsiento()
                         );
                     }
                 }
@@ -77,6 +97,9 @@ public class Usuario {
         }
     }
 
+    /**
+     * Carga el historial de compras del usuario desde un archivo de texto.
+     */
     public void cargarHistorialDesdeArchivo() {
         try {
             String ruta = "data_usuarios/historial_" + correo.replace("@", "_") + ".txt";
@@ -86,8 +109,6 @@ public class Usuario {
                 System.out.println("⚠️ No existe historial para " + correo);
                 return;
             }
-
-            System.out.println("Cargando historial desde: " + file.getAbsolutePath());
 
             try (Scanner scanner = new Scanner(file)) {
                 while (scanner.hasNextLine()) {

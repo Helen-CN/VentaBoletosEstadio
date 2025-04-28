@@ -1,16 +1,24 @@
-
 package model;
 
-public class Boleto 
-{
+/**
+ * Clase que representa un boleto de un evento en el estadio.
+ */
+public class Boleto {
     private String id;
     private String categoria;
     private double precio;
     private String asiento;
     private boolean vendido;
 
-    public Boleto(String id, String categoria, double precio, String asiento) 
-    {
+    /**
+     * Constructor para crear un boleto nuevo.
+     *
+     * @param id        Identificador único del boleto.
+     * @param categoria Categoría del boleto (VIP, Preferencial, General).
+     * @param precio    Precio del boleto.
+     * @param asiento   Asiento asignado (ejemplo: F1C2).
+     */
+    public Boleto(String id, String categoria, double precio, String asiento) {
         this.id = id;
         this.categoria = categoria;
         this.precio = precio;
@@ -18,39 +26,32 @@ public class Boleto
         this.vendido = false;
     }
 
-    public String getId() 
-    {
+    public String getId() {
         return id;
     }
 
-    public String getCategoria() 
-    {
+    public String getCategoria() {
         return categoria;
     }
 
-    public double getPrecio() 
-    {
+    public double getPrecio() {
         return precio;
     }
 
-    public String getAsiento() 
-    {
+    public String getAsiento() {
         return asiento;
     }
 
-    public boolean isVendido() 
-    {
+    public boolean isVendido() {
         return vendido;
     }
 
-    public void setVendido(boolean vendido) 
-    {
+    public void setVendido(boolean vendido) {
         this.vendido = vendido;
     }
 
     @Override
-    public String toString() 
-    {
+    public String toString() {
         return "Boleto{" +
                 "ID='" + id + '\'' +
                 ", Categoría='" + categoria + '\'' +
