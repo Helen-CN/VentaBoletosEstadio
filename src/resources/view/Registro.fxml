@@ -12,12 +12,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<VBox fx:id="registerPane" alignment="CENTER" prefHeight="550.0" prefWidth="350.0" spacing="20" style="-fx-background-color: #0f4377;" stylesheets="@/css/registro.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
+<VBox fx:id="registerPane" alignment="CENTER" prefHeight="550.0" prefWidth="350.0" spacing="20" style="-fx-background-color: #0f4377;" stylesheets="/css/registro.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
     
     <!-- Logo con efecto -->
     <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
         <image>
-            <Image url="@/images/logo.png" />
+            <Image url="/images/logo.png" />
         </image>
         <effect>
             <DropShadow color="rgba(0,0,0,0.4)" radius="15" spread="0.2" />

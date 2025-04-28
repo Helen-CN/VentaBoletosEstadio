@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane prefHeight="520.0" prefWidth="800.0" stylesheets="@/css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane prefHeight="520.0" prefWidth="800.0" stylesheets="/css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
     <children>
 
         <!-- Logo principal -->
         <ImageView fitHeight="270.0" fitWidth="270.0" layoutX="90.0" layoutY="80.0" preserveRatio="true">
             <image>
-                <Image url="@/images/logo.png" />
+                <Image url="/images/logo.png" />
             </image>
             <effect>
                 <DropShadow color="#00000055" radius="20" />
@@ -40,7 +40,7 @@
                 <HBox alignment="CENTER_LEFT" spacing="8">
                     <ImageView fitHeight="20" fitWidth="20">
                         <image>
-                            <Image url="@/images/user_icon.png" />
+                            <Image url="/images/user_icon.png" />
                         </image>
                     </ImageView>
                     <TextField fx:id="usernameField" prefHeight="34.0" prefWidth="231.0" promptText="Usuario" />
@@ -50,7 +50,7 @@
                 <HBox alignment="CENTER_LEFT" spacing="8">
                     <ImageView fitHeight="20" fitWidth="20">
                         <image>
-                            <Image url="@/images/lock_icon.png" />
+                            <Image url="/images/lock_icon.png" />
                         </image>
                     </ImageView>
                     <PasswordField fx:id="passwordField" prefHeight="34.0" prefWidth="232.0" promptText="Contraseña" />
