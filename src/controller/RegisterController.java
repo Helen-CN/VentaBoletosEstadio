@@ -66,7 +66,7 @@ public class RegisterController {
 
     private boolean validarCampos(String nombre, String correo, String contrasena) {
         if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
-            animarError("⚠️ Todos los campos son obligatorios");
+            animarError("Todos los campos son obligatorios");
             return false;
         }
         return true;
@@ -76,13 +76,13 @@ public class RegisterController {
         progressIndicator.setVisible(false);
 
         if (registrado) {
-            mostrarMensajeExito("✅ ¡Registro exitoso!");
+            mostrarMensajeExito("¡Registro exitoso!");
 
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(e -> mainApp.mostrarLogin());
             pause.play();
         } else {
-            animarError("❌ Correo ya registrado");
+            animarError("Correo ya registrado");
         }
     }
 

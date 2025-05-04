@@ -1,5 +1,6 @@
 package view;
 
+import controller.CompraController;
 import controller.ForgotPasswordController;
 import controller.LoginController;
 import controller.SistemaBoletos;
@@ -20,17 +21,15 @@ public class MainView extends Application {
 
     private Stage primaryStage;
     private SistemaBoletos sistema;
-    private GestorUsuarios gestor;
-    private GestorUsuarios gestorUsuarios; // atributo global
-
+    private GestorUsuarios gestorUsuarios;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.sistema = new SistemaBoletos();
-        this.gestor = new GestorUsuarios();
+        this.gestorUsuarios = new GestorUsuarios();
 
-        sistema.cargarEstado(); // Carga los boletos existentes
+        sistema.cargarEstado(); // Cargar boletos existentes
         configurarStage();
         mostrarLogin();
     }
@@ -38,12 +37,12 @@ public class MainView extends Application {
     @Override
     public void stop() {
         if (sistema != null) {
-            sistema.guardarEstado(); // Guarda el estado de los boletos al cerrar
+            sistema.guardarEstado(); // Guardar estado de los boletos
         }
     }
 
     /**
-     * Configura las propiedades iniciales del Stage principal.
+     * Configura propiedades iniciales de la ventana principal.
      */
     private void configurarStage() {
         primaryStage.setTitle("Sistema de Venta de Boletos");
@@ -53,10 +52,10 @@ public class MainView extends Application {
 
     /**
      * Cambia la escena actual mostrando el nodo raíz proporcionado.
-     * @param root Nodo raíz a mostrar en la ventana principal.
      */
     private void cambiarEscena(Parent root) {
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
@@ -70,7 +69,7 @@ public class MainView extends Application {
 
             LoginController controller = loader.getController();
             controller.setMainApp(this);
-            controller.setGestorUsuarios(gestor);
+            controller.setGestorUsuarios(gestorUsuarios);
 
             cambiarEscena(root);
         } catch (IOException e) {
@@ -79,11 +78,11 @@ public class MainView extends Application {
     }
 
     /**
-     * Muestra la ventana de registro de nuevos usuarios.
+     * Muestra la ventana de registro.
      */
     public void mostrarRegistro() {
         try {
-            RegistroView registroView = new RegistroView(this, gestor);
+            RegistroView registroView = new RegistroView(this, gestorUsuarios);
             Scene escenaRegistro = registroView.crearScene();
 
             if (escenaRegistro != null) {
@@ -93,30 +92,63 @@ public class MainView extends Application {
             }
         } catch (Exception e) {
             mostrarError("Error al mostrar la ventana de Registro.", e);
-            mostrarLogin(); // Regresar a login si falla
+            mostrarLogin();
         }
     }
 
     /**
      * Muestra el menú principal tras iniciar sesión.
-     * @param usuario Usuario autenticado.
      */
     public void mostrarMenuPrincipal(Usuario usuario) {
-        primaryStage.setScene(new MenuView(this, sistema, usuario).crearScene());
+        MenuView menuView = new MenuView(this, sistema, usuario);
+        primaryStage.setScene(menuView.crearScene());
     }
 
     /**
      * Muestra la ventana de compra de boletos.
-     * @param usuario Usuario autenticado.
      */
     public void mostrarCompraBoletos(Usuario usuario) {
-        primaryStage.setScene(new CompraView(this, sistema, usuario).crearScene());
+        try {
+            if (usuario == null || usuario.getCorreo() == null) {
+                System.out.println("Error: usuario invalido al intentar mostrar Compra");
+                mostrarError("Usuario no valido.", new Exception("Usuario nulo o sin correo"));
+                mostrarLogin();
+                return;
+            }
+            System.out.println("Mostrando Compra para usuario: " + usuario.getCorreo());
+            usuario.cargarHistorialDesdeArchivo(); // Cargar historial al mostrar la ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Compra.fxml"));
+            Parent root = loader.load();
+
+            CompraController controller = loader.getController();
+            controller.inicializar(this, sistema, usuario);
+
+            cambiarEscena(root);
+        } catch (IOException e) {
+            mostrarError("Error al cargar la ventana de Compra.", e);
+        }
     }
 
     /**
-     * Muestra una alerta de error en caso de excepción.
-     * @param mensaje Mensaje principal del error.
-     * @param e Excepción capturada.
+     * Muestra la ventana de recuperación de contraseña.
+     */
+    public void mostrarRecuperarContrasena() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgot_password.fxml"));
+            Parent root = loader.load();
+
+            ForgotPasswordController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setGestorUsuarios(gestorUsuarios);
+
+            cambiarEscena(root);
+        } catch (IOException e) {
+            mostrarError("Error al cargar recuperacion de contrasena.", e);
+        }
+    }
+
+    /**
+     * Muestra una alerta en caso de error.
      */
     private void mostrarError(String mensaje, Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -126,25 +158,6 @@ public class MainView extends Application {
         alert.showAndWait();
         e.printStackTrace();
     }
-    
-    public void mostrarRecuperarContrasena() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgot_password.fxml"));
-            Parent root = loader.load();
-
-            ForgotPasswordController controller = loader.getController();
-            controller.setMainApp(this);
-            controller.setGestorUsuarios(gestorUsuarios); // si necesitas el gestor
-
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
     public static void main(String[] args) {
         launch(args);

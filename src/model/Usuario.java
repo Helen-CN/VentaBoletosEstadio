@@ -23,7 +23,7 @@ public class Usuario {
      */
     public Usuario(String nombre, String correo) {
         this.nombre = nombre;
-        this.correo = correo;
+        this.correo = validarCorreo(correo);
         this.historialCompras = new Stack<>();
     }
 
@@ -36,12 +36,28 @@ public class Usuario {
     }
 
     /**
+     * Valida y normaliza el correo electrónico.
+     *
+     * @param correo Correo a validar.
+     * @return Correo válido o un valor por defecto si es nulo o inválido.
+     */
+    private String validarCorreo(String correo) {
+        if (correo == null || correo.trim().isEmpty() || correo.equals("kas@email.com")) {
+            System.out.println("⚠️ Correo inválido o predeterminado detectado. Usando unknown@default.com");
+            return "unknown@default.com";
+        }
+        return correo.trim();
+    }
+
+    /**
      * Agrega un boleto al historial de compras del usuario.
      *
      * @param boleto Boleto comprado.
      */
     public void agregarCompra(Boleto boleto) {
-        historialCompras.push(boleto);
+        if (boleto != null) {
+            historialCompras.push(boleto);
+        }
     }
 
     /**
@@ -58,6 +74,15 @@ public class Usuario {
 
     public Stack<Boleto> getHistorialCompras() {
         return historialCompras;
+    }
+
+    /**
+     * Establece el historial de compras del usuario.
+     *
+     * @param historialCompras Nueva pila de boletos.
+     */
+    public void setHistorialCompras(Stack<Boleto> historialCompras) {
+        this.historialCompras = historialCompras != null ? historialCompras : new Stack<>();
     }
 
     @Override
@@ -106,7 +131,7 @@ public class Usuario {
             File file = new File(ruta);
 
             if (!file.exists()) {
-                System.out.println("⚠️ No existe historial para " + correo);
+                System.out.println("⚠️ No existe historial para " + correo + ". Se creará uno nuevo al realizar una compra.");
                 return;
             }
 

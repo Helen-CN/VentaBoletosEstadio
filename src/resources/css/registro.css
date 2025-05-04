@@ -71,7 +71,7 @@
 
 /* ====== BOTONES ====== */
 .primary-button {
-    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+    -fx-background-color: linear-gradient(to bottom,#6c63ff, #4151e0);
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 8px;
@@ -84,14 +84,14 @@
 }
 
 .primary-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #27ae60, #219955);
+    -fx-background-color: linear-gradient(to bottom, #5a54d1, #3630a6);
 }
 
 .secondary-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #3498db;
-    -fx-border-color: #3498db;
-    -fx-border-radius: 8px;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
     -fx-border-width: 2px;
     -fx-padding: 0 25px;
     -fx-font-size: 14px;
@@ -101,8 +101,8 @@
 }
 
 .secondary-button:hover {
-    -fx-background-color: rgba(52, 152, 219, 0.08);
-    -fx-text-fill: #2980b9;
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: white;
 }
 
 /* ====== PROGRESS INDICATOR ====== */

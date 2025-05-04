@@ -1,1 +1,6 @@
 4e3b7c0d-2917-4577-887f-08ac28624374,Preferencial,100.0,F1C1,true
+d6bf988c-9852-490d-aceb-9093a9dd9df3,Preferencial,100.0,F4C6,true
+a274a73e-aaa4-4e58-9816-61708e3f2831,Preferencial,100.0,F1C6,true
+3c5d0a82-550f-4b9e-b183-656cd458114e,Preferencial,100.0,F2C6,true
+b4d4a16e-29e2-4220-819c-49132fb67b77,Preferencial,100.0,F1C5,true
+5ba6ff41-9a81-481b-8788-201a9357edaf,Preferencial,100.0,F1C4,true

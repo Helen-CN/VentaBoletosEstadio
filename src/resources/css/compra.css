@@ -1,0 +1,105 @@
+/* Fondo general */
+.root {
+    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);
+    -fx-font-family: "Poppins", sans-serif;
+}
+
+/* Título */
+.titulo {
+    -fx-font-size: 28px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
+}
+
+/* Subtítulo */
+.subtitulo {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Botón principal */
+.primary-button {
+    -fx-background-color: #6c63ff;
+    -fx-background-radius: 25;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-transition: -fx-background-color 0.3s;
+}
+
+.primary-button:hover {
+    -fx-background-color: #5a54d1;
+}
+
+/* Botón secundario */
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-radius: 25;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-transition: -fx-background-color 0.3s;
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(255,255,255,0.3);
+}
+
+/* Tarjeta de resumen */
+.login-card {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-background-radius: 20px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+/* Etiquetas generales */
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Mensajes */
+.message-label {
+    -fx-text-fill: #ff4d4d;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 25;
+    -fx-padding: 5 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #6c63ff;
+    -fx-background-radius: 25;
+}
+
+/* Ajuste para botones con iconos */
+.button .graphic {
+    -fx-padding: 0 5 0 0;
+}
+
+/* Ajuste para HBox con iconos y etiquetas */
+.hbox {
+    -fx-alignment: CENTER_LEFT;
+}
