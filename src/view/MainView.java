@@ -13,7 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.GestorUsuarios;
 import model.Usuario;
-
+    
 /**
  * Clase principal que inicia la aplicación de venta de boletos.
  */

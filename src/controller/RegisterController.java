@@ -64,11 +64,35 @@ public class RegisterController {
         }
     }
 
-    private boolean validarCampos(String nombre, String correo, String contrasena) {
+   private boolean validarCampos(String nombre, String correo, String contrasena) {
+
+    System.out.println("Nombre: " + nombre);
+    System.out.println("Correo: " + correo);
+    System.out.println("Contraseña: " + contrasena);
+    System.out.println("Validaciones -> Nombre: " + validarNombre(nombre));
+    System.out.println("Validaciones -> Correo: " + validarCorreo(correo));
+    System.out.println("Validaciones -> Contraseña: " + validarContraseña(contrasena));
+        
         if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
-            animarError("Todos los campos son obligatorios");
+            animarError("⚠️ Todos los campos son obligatorios");
+            return false;
+        }    
+        if(validarNombre(nombre)==false){
+            animarError("⚠️ Nombre de usuario no valido");
             return false;
         }
+       
+        if(validarCorreo(correo)==false){
+            animarError("⚠️ Correo no valido");
+            return false;
+        }    
+        
+        if(validarContraseña(contrasena)==false){
+            animarError("⚠️ Contaseña no valida");
+            return false;
+        }
+    
+        
         return true;
     }
 
@@ -119,4 +143,16 @@ public class RegisterController {
             }
         }
     }
+        public static boolean validarCorreo(String correo) {
+            return correo.matches("^[a-z0-9._%+-]+@(gmail|hotmail|Outlook)\\.(com)$");
+        }
+    
+    public static boolean validarNombre(String Nombre){
+            return Nombre.matches("^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$");
+
+    }
+    
+  public static boolean validarContraseña(String contraseña) {
+          return contraseña.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$");
+}
 }

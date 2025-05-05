@@ -11,39 +11,54 @@ import javafx.scene.layout.GridPane;
 import model.Usuario;
 import view.MainView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CompraController {
 
-    @FXML private BorderPane root;
-    @FXML private ComboBox<String> comboCategoria;
-    @FXML private ImageView mapaEstadio;
-    @FXML private GridPane gridAsientos;
-    @FXML private Label mensajeLabel, zonaLabel, asientoLabel, precioLabel;
-    @FXML private Button btnCargarZona, btnConfirmar, btnVolver;
-    @FXML private ImageView cargarZonaIcon, mapaIcon, zonaIcon, asientoIcon, precioIcon, confirmarIcon, volverIcon;
+    @FXML
+    private BorderPane root;
+    @FXML
+    private ComboBox<String> comboCategoria;
+    @FXML
+    private ImageView mapaEstadio;
+    @FXML
+    private ImageView ImagenCancha;
+    @FXML
+    private GridPane gridAsientos;
+    @FXML
+    private Label mensajeLabel, zonaLabel, asientoLabel, precioLabel,zonaTotal;
+    @FXML
+    private Button btnCargarZona, btnConfirmar, btnVolver, btnPreferente, btnVIPzona1, btnVIPzona2, btnGeneral;
+    @FXML
+    private ImageView cargarZonaIcon, mapaIcon, zonaIcon, asientoIcon, precioIcon, confirmarIcon, volverIcon;
 
     private MainView mainView;
     private SistemaBoletos sistema;
     private Usuario usuario;
     private String zonaSeleccionada;
     private int filaSeleccionada = -1, colSeleccionada = -1;
+    
+    private final List<String> historialAsientos = new ArrayList<>();
+    private final List<String> historialPrecios = new ArrayList<>();
+    
     private static final String[] ZONAS = {"VIP", "Preferencial", "General"};
     private static final double[] PRECIOS = {150.0, 100.0, 50.0};
-
+    private double totalPrecio = 0.0;
+    
     public void inicializar(MainView mainView, SistemaBoletos sistema, Usuario usuario) {
         this.mainView = mainView;
         this.sistema = sistema;
         this.usuario = usuario;
 
-        // Cargar imagen del estadio
         try {
             mapaEstadio.setImage(new Image(getClass().getResourceAsStream("/images/stadium_bg.png")));
         } catch (Exception e) {
             System.err.println("Error al cargar imagen del estadio: " + e.getMessage());
-            mapaEstadio.setImage(null);
         }
 
-        // Cargar iconos
         try {
+            ImagenCancha.setImage(new Image(getClass().getResourceAsStream("/images/Cancha.png")));
             cargarZonaIcon.setImage(new Image(getClass().getResourceAsStream("/images/map_icon.png")));
             mapaIcon.setImage(new Image(getClass().getResourceAsStream("/images/stadium_icon.png")));
             zonaIcon.setImage(new Image(getClass().getResourceAsStream("/images/location_icon.png")));
@@ -55,18 +70,35 @@ public class CompraController {
             System.err.println("Error al cargar iconos: " + e.getMessage());
         }
 
-        // Inicializar ComboBox
+        btnPreferente.setOnAction(e -> {
+            cargarZona("Preferencial");
+            comboCategoria.setValue("Preferencial");
+            mostrarMensaje("Zona " + "Preferencial" + " cargada");
+        });
+        btnVIPzona1.setOnAction(e -> {
+            cargarZona("VIP");
+            comboCategoria.setValue("VIP");
+            mostrarMensaje("Zona " + "VIP" + " cargada");
+        });
+        btnVIPzona2.setOnAction(e -> {
+            cargarZona("VIP");
+            comboCategoria.setValue("VIP");
+            mostrarMensaje("Zona " + "VIP" + " cargada");
+        });
+        btnGeneral.setOnAction(e -> {
+            cargarZona("General");
+            comboCategoria.setValue("General");
+            mostrarMensaje("Zona " + "General" + " cargada");
+        });
+
         comboCategoria.getItems().addAll(ZONAS);
         comboCategoria.setOnAction(e -> btnCargarZona.setDisable(comboCategoria.getValue() == null));
 
-        // Configurar botones
         btnCargarZona.setOnAction(e -> cargarZona(comboCategoria.getValue()));
         btnConfirmar.setOnAction(e -> confirmarCompra());
         btnVolver.setOnAction(e -> mainView.mostrarMenuPrincipal(usuario));
 
-        // Verificar historial de compras
         if (usuario.getHistorialCompras() == null) {
-            System.out.println("Inicializando historial de compras para usuario: " + usuario.getCorreo());
             usuario.setHistorialCompras(new java.util.Stack<>());
         }
 
@@ -74,7 +106,9 @@ public class CompraController {
     }
 
     private void cargarZona(String categoria) {
-        if (categoria == null) return;
+        if (categoria == null) {
+            return;
+        }
 
         zonaSeleccionada = categoria;
         gridAsientos.getChildren().clear();
@@ -95,7 +129,6 @@ public class CompraController {
                 asiento.setFitWidth(40);
                 asiento.setFitHeight(40);
 
-                // Calcular desplazamiento curvo para simular estadio
                 int offset = (int) (Math.sin(Math.PI * fila / (filas - 1)) * (centerCol - Math.abs(col - centerCol)));
                 int adjustedCol = col + offset;
 
@@ -108,7 +141,7 @@ public class CompraController {
                         asiento.setOnMouseClicked(e -> seleccionarAsiento(f, c));
                     }
                 } catch (Exception e) {
-                    System.err.println("Error al cargar imagen para asiento en F" + (fila + 1) + "C" + (col + 1) + ": " + e.getMessage());
+                    System.err.println("Error al cargar imagen para asiento: " + e.getMessage());
                     asiento.setImage(null);
                 }
 
@@ -123,32 +156,50 @@ public class CompraController {
     }
 
     private void seleccionarAsiento(int fila, int col) {
-        resetSeleccion();
         filaSeleccionada = fila;
         colSeleccionada = col;
 
-        // Actualizar imagen del asiento seleccionado
+        // Guardar información sin ID
+        String asientoInfo = "Fila " + (fila + 1) + ", Columna " + (col + 1);
+        int zonaIndex = java.util.Arrays.asList(ZONAS).indexOf(zonaSeleccionada);
+        double precio = PRECIOS[zonaIndex];
+        String precioInfo = "$" + precio;
+
+    // Sumar al total
+        totalPrecio += precio;
+
+        historialAsientos.add(asientoInfo);
+        historialPrecios.add(precioInfo);
+
+        // Actualizar visualmente el asiento seleccionado
         gridAsientos.getChildren().forEach(node -> {
             if (node instanceof ImageView) {
-                Integer row = GridPane.getRowIndex(node);
-                Integer column = GridPane.getColumnIndex(node);
-                if (row != null && column != null && row == fila) {
-                    int originalCol = column - (int) (Math.sin(Math.PI * fila / (sistema.getMatriz(zonaSeleccionada).length - 1)) * (sistema.getMatriz(zonaSeleccionada)[0].length / 2 - Math.abs(col - sistema.getMatriz(zonaSeleccionada)[0].length / 2)));
-                    if (originalCol == col) {
-                        try {
-                            ((ImageView) node).setImage(new Image(getClass().getResourceAsStream("/images/seat_selected.png")));
-                        } catch (Exception e) {
-                            System.err.println("Error al cargar imagen seleccionada: " + e.getMessage());
-                        }
-                    }
-                }
+                node.setOpacity(1.0); // quitar selección visual anterior
             }
         });
 
-        // Actualizar resumen
+        for (javafx.scene.Node node : gridAsientos.getChildren()) {
+            if (node instanceof ImageView imageView) {
+                Integer row = GridPane.getRowIndex(node);
+                Integer column = GridPane.getColumnIndex(node);
+                int offset = (int) (Math.sin(Math.PI * fila / (sistema.getMatriz(zonaSeleccionada).length - 1))
+                        * (sistema.getMatriz(zonaSeleccionada)[0].length / 2 - Math.abs(col - sistema.getMatriz(zonaSeleccionada)[0].length / 2)));
+                int adjustedCol = col + offset;
+
+                if (row != null && column != null && row == fila && column == adjustedCol) {
+                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/seat_selected.png")));
+                    break;
+                }
+            }
+        }
+
+        // Mostrar zona
         zonaLabel.setText("Zona: " + zonaSeleccionada);
-        asientoLabel.setText("Asiento: Fila " + (fila + 1) + ", Columna " + (col + 1));
-        precioLabel.setText("Precio: $" + PRECIOS[java.util.Arrays.asList(ZONAS).indexOf(zonaSeleccionada)]);
+
+        // Mostrar historial acumulado
+        asientoLabel.setText("Asientos:\n" + String.join("\n", historialAsientos));
+        precioLabel.setText("Precios:\n" + String.join("\n", historialPrecios));
+        zonaTotal.setText("Total: $" + String.format("%.2f", totalPrecio));
         btnConfirmar.setDisable(false);
     }
 

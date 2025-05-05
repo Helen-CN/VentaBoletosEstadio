@@ -103,3 +103,58 @@
 .hbox {
     -fx-alignment: CENTER_LEFT;
 }
+*{
+    -fx-base:#424242;
+    
+}
+.primertbutton {
+    -fx-text-fill: black;
+    -fx-shape: "M 348 264 L 477 266 Q 568 254 568 445 L 349 446 L 152 444 Q 151 254 228 264 L 349 264";
+    -fx-background-color: linear-gradient(#4fc3f7, #03a9f4);
+    -fx-border-color: #0288d1;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 14, 0.4, 4, 4);
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 4;
+}
+
+.primertbutton:pressed {
+    -fx-background-color: linear-gradient(#03a9f4, #0288d1);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 10, 0.4, 2, 2);
+}
+
+/* ---------------------- */
+
+.segundotbutton {
+    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#fdd835, #fbc02d);
+    -fx-border-color: #f9a825;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 14, 0.4, 4, 4);
+    -fx-background-insets: 0, 1;
+    /* Sin border-radius para que se mantenga cuadrado */
+}
+
+.segundotbutton:pressed {
+    -fx-background-color: linear-gradient(#fbc02d, #f9a825);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 10, 0.4, 2, 2);
+}
+
+
+/* ---------------------- */
+
+.tercertbutton {
+    -fx-text-fill: black;
+    -fx-shape: "M 152 264 L 349 264 L 568 264 Q 568 454 477 444 L 348 446 L 228 444 Q 151 454 152 264 Z";
+    -fx-background-color: linear-gradient(#b39ddb, #9575cd);
+    -fx-border-color: #7e57c2;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 14, 0.4, 4, 4);
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 4;
+}
+
+.tercertbutton:pressed {
+    -fx-background-color: linear-gradient(#9575cd, #7e57c2);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 10, 0.4, 2, 2);
+}
